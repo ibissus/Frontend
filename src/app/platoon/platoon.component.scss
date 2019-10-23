@@ -1,0 +1,140 @@
+p {
+    font-size: 1.5rem;
+    margin: 1rem;
+  }
+  h5 {
+    font-size: 1.5rem;
+  }
+  mat-panel-title {
+    margin-top: 4rem;
+    height: 5rem;
+  }
+  section {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    mat-card {
+      margin-bottom: 1rem;
+      mat-toolbar {
+        text-align: center;
+        height: 4rem;
+        text-emphasis: none;
+        text-decoration: none;
+        font-size: 1.8rem;
+        font-family: "Raleway", sans-serif;
+        border-radius: 0.2rem;
+        // border: 1px solid rgb(62, 151, 253);
+        margin-bottom: 3rem;
+        -webkit-box-shadow: 2px 2px 5px 0px #00000057;
+        -moz-box-shadow: 2px 2px 5px 0px #00000057;
+        box-shadow: 2px 2px 5px 0px #00000057;
+        // background-color: #fafafa;
+  
+        mat-icon {
+          margin-right: 1rem;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  
+  .block {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+  button {
+    margin: 0.5rem;
+  }
+  
+  // form send notification
+  .example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+  img {
+    height: 3rem;
+    width: 3.5rem;
+  }
+  #soldiers {
+    margin-right: 1.5rem;
+  }
+  .asks {
+    display: inline-flex;
+    width: 100%;
+    align-self: center;
+  }
+  
+  mat-grid-tile {
+    background: #fafafa;
+  }
+  mat-chip {
+    max-width: 200px;
+    margin-left: 1rem;
+  }
+  
+  mat-card {
+    font-size: 1.5rem;
+  }
+  mat-card-content {
+    background-color: #fafafa;
+    padding: 0.7rem;
+  }
+  .toolbar-icon {
+    color: grey;
+  }
+  .ngx-contextmenu {
+    display: list-item;
+  }
+  
+  // context menu
+  .clr-tree-node {
+    font-size: 1.5rem;
+  }
+  clr-icon {
+    height: 2rem;
+    width: 2rem;
+    color: #e3b314;
+  }
+  .file {
+    color: rgb(204, 206, 202);
+  }
+  .mystyle .dropdown-menu {
+    background-color: rgb(235, 235, 235);
+    width: 20rem;
+    font-size: 1.5rem;
+    padding-bottom: 4rem;
+  }
+  .mystyle .dropdown-menu > li > a:focus,
+  .mystyle .dropdown-menu > li > a:hover {
+    color: white;
+    background-color: black;
+  }
+  .prosba {
+    color: black;
+    margin: 0.5rem;
+  }
+  span {
+    align-self: center;
+    margin-right: 1rem;
+  }
+  .context_icon {
+    font-size: 1.6rem;
+  }
+  .header-info{
+    margin: .5rem;
+    font-size:1.5rem; 
+    height: 5rem;
+    background-color: #fafafa;
+  }
+  mat-basic-chip{
+    background-color: #616161;
+    color: white;
+    margin: 1rem;
+    padding:1rem;
+    cursor: pointer;
+    border-radius: .5rem;
+    width: 12.8rem;
+}

@@ -1,0 +1,39 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false">
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <span>
+        <img src="../../assets/logo.png">
+      </span>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end">
+        <ul fxLayout fxLayoutGap="5px">
+
+          <li>
+            <a [matMenuTriggerFor]="menu">
+              <img class="menu" mat-card-avatar src="../../assets/menu_icon2.png" alt="user menu icon">
+            </a>
+          <li>
+          </li>
+        </ul>
+      </div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-menu #menu="matMenu">
+
+  <button mat-menu-item (click)="logOut()" [routerLink]="['/login']">
+    <mat-icon>directions_run</mat-icon>
+    <span>Wyloguj</span>
+  </button>
+  <button mat-menu-item [routerLink]="['/company', user?.soldier?.nrKompanii]" *ngIf="user?.soldier?.nrKompanii !== null">
+    <mat-icon>group</mat-icon>
+    <span>Kompania</span>
+  </button>
+  <button mat-menu-item [routerLink]="['/company', user?.soldier?.nrKompanii, user?.soldier?.nrPlutonu]" *ngIf="user?.soldier?.nrPlutonu !== null">
+    <mat-icon>folder_shared</mat-icon>
+    <span>Pluton</span>
+  </button>
+</mat-menu>

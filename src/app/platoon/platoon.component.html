@@ -1,0 +1,191 @@
+<section fxFlex fxLayoutAlign="center center">
+    <mat-card fxFlex.md="100%" fxFlex.lt-md="100%" fxFlex="120rem">
+
+        <mat-card>
+            <mat-toolbar>
+                <mat-icon [routerLink]="['/company', platoon?.nrKompanii]">
+                    keyboard_backspace
+                </mat-icon>
+                Panel obsługi plutonu
+            </mat-toolbar>
+
+            <div 
+            fxLayout="row wrap" fxLayoutAlign="flex-start" fxLayout.lt-sm="column" >
+            <ng-container >
+              <mat-card class="header-info" fxFlex.lt-md="0 1 calc(50% - 32px)"
+              fxFlex.lt-sm="100%" fxFlex="0 1 calc(49%)">
+              <img matTooltip="Dowódca kompanii" class="commander-icon" src="../../assets/commander.png"> Dowódca plutonu
+            </mat-card>
+              <mat-card class="header-info" fxFlex.lt-md="0 1 calc(50% - 32px)"
+              fxFlex.lt-sm="100%" fxFlex="0 1 calc(49%)">
+              <b>{{platoon?._Dowodca?.imie}} {{platoon?._Dowodca?.nazwisko}}</b>
+            </mat-card>
+              <mat-card class="header-info" fxFlex.lt-md="0 1 calc(50% - 32px)"
+              fxFlex.lt-sm="100%" fxFlex="0 1 calc(49%)">
+              <img id="soldiers" matTooltip="Numer kompanii" class="commander-icon" src="../../assets/soldiers.png">Numer plutonu
+            </mat-card>
+              <mat-card class="header-info" fxFlex.lt-md="0 1 calc(50% - 32px)"
+              fxFlex.lt-sm="100%" fxFlex="0 1 calc(49%)">
+              <b>{{platoon?.nrPlutonu}}</b>
+            </mat-card>
+            </ng-container>
+          </div>
+
+        </mat-card>
+        <mat-card>
+            <mat-card-content>
+                
+                <button matTooltip="Lista żołnierzy" mat-raised-button color='primary' (click)="showContent(1)">
+                    <mat-icon>people</mat-icon>
+                </button>
+
+                <button *ngIf="user?.soldier?.idOsoby === platoon?.idDowodcy && platoon?._Prosby.length === 0" matTooltip="Prośby o dołaczenie do plutonu" mat-raised-button color='primary' (click)="showContent(2)">
+                    <mat-icon>email</mat-icon>
+                </button>
+
+                <button *ngIf="user?.soldier?.idOsoby === platoon?.idDowodcy && platoon?._Prosby.length > 0" matTooltip="Prośby o dołaczenie do plutonu" mat-raised-button color='primary'matBadgeSize="small"
+                matBadge="!" matBadgePosition="before" matBadgeColor="accent" (click)="showContent(2)">
+                    <mat-icon>email</mat-icon>
+                </button>
+
+                <button matTooltip="Wyślij wiadomość do podwładnych" mat-raised-button color='primary' (click)="showContent(3)">
+                    <mat-icon>send</mat-icon>
+                </button>
+
+                <button matTooltip="Przeglądaj pliki i foldery" mat-raised-button color='primary' (click)="showContent(4)">
+                    <mat-icon>create_new_folder</mat-icon>
+                </button>
+                <button (click)="requestAssRole()" *ngIf="!user?.soldier?.funkcyjny && user.userId !== platoon?.idDowodcy" matTooltip="Dołącz jako funkcyjny" mat-raised-button color='primary' >
+                    <mat-icon>person_add</mat-icon>
+                </button>
+
+                <button matTooltip="Zwiń okno" mat-raised-button color='primary' (click)="showContent(6)">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card *ngIf="soldierListShow">
+                <h5>
+                    <b>Funkcyjni Plutonu :</b>
+                </h5>
+                <br>
+                <mat-chip-list>
+                    <mat-basic-chip disabled selected *ngFor="let s of getFunkcyjni() | async">
+                        <b>{{s?.imie}} {{s?.nazwisko}}</b> 
+                    </mat-basic-chip>
+                </mat-chip-list>
+            <h5>
+                <b>Żołnierze Plutonu :</b>
+            </h5>
+            <br>
+            <mat-chip-list>
+                <mat-basic-chip disabled selected *ngFor="let s of platoon?._Zolnierze">
+                   <b>{{s?.imie}} {{s?.nazwisko}}</b> 
+                </mat-basic-chip>
+            </mat-chip-list>
+        </mat-card>
+
+        <mat-card *ngIf="addAskShow">
+            <mat-card-content>
+                <h5>
+                    <b>Prośby do dowódcy plutonu :</b>
+                </h5>
+                <br>
+                <ng-container *ngIf="user?.soldier?.idOsoby === platoon?.idDowodcy">
+                    <ng-container *ngFor="let r of platoon?._Prosby">
+                            <br>
+                            <br>
+                            <br>
+                        <div class="asks">
+                          <br>
+                            <span >Żołnierz <b> {{r?._Zglaszajacy?.imie}} {{r?._Zglaszajacy?.nazwisko}} </b> prosi o zaakceptowanie {{Request.getRequestTypeString(r?.typProsby)}}</span>
+
+                            <mat-chip-list aria-label="Fish selection">
+                                <mat-chip (click)="request(r?.idProsby, true)" color="primary" selected>Akceptuj</mat-chip>
+                                <mat-chip (click)="request(r?.idProsby, false)" color="accent" selected>Odrzuć</mat-chip>
+                            </mat-chip-list>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card *ngIf="sendMessageShow">
+            <div class="example-container">
+                <mat-form-field>
+                    <mat-select placeholder="Grupa docelowa" #target>
+                        <mat-option value="all">Cały pluton</mat-option>
+                        <mat-option value="ass">Tylko funkcyjni</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <input #title matInput placeholder="Tytuł wiadomości">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <textarea #msg matInput placeholder="Treść wiadomości"></textarea>
+                </mat-form-field>
+
+
+            </div>
+            <button class="block" mat-raised-button color="primary" value="Wyślij" (click)="sendNotification(target.value, title.value, msg.value)">Wyślij powiadomienie</button>
+        </mat-card>
+
+        <mat-card *ngIf="filesShow">
+            <mat-toolbar>
+                <mat-icon class="toolbar-icon">folder_open</mat-icon>
+                Foldery i pliki:
+            </mat-toolbar>
+
+            <form class="block">
+                <mat-form-field class="example-full-width">
+                    <input matInput #newFolder type="text" placeholder="Nazwa folderu">
+                </mat-form-field>
+            </form>
+
+            <button class="block" mat-raised-button color="primary" value="Utwórz" (click)="createFolder(newFolder.value, null)">Utwórz nowy folder</button>
+
+            <!--https://v2.clarity.design/tree-view-->
+            <clr-tree [clrLazy]="true">
+                <clr-tree-node *clrRecursiveFor="let ff of fileTree | async; getChildren: getTreeSubfolders" [contextMenu]="withFunctions" [contextMenuSubject]="ff"
+                    [clrExpandable]="ff?.isFolder && (ff?.folder._KatalogiPodrzedne.length > 0 || ff?.folder._Pliki.length > 0)">
+                    <clr-icon class="is-solid" *ngIf="ff?.isFolder" shape="folder"></clr-icon>
+                    <clr-icon class="is-solid file" *ngIf="!ff?.isFolder" shape="file"></clr-icon>
+                    <ng-container *ngIf="ff?.isFolder; else elseFile">{{ff?.folder.nazwa}}</ng-container>
+                    <ng-template #elseFile>{{ff?.file.opis}}</ng-template>
+                </clr-tree-node>
+            </clr-tree>
+
+            <context-menu #withFunctions [menuClass]="'mystyle'" >
+
+                    <ng-template let-item contextMenuItem [visible]="isFolder"  (execute)="openContextMenu($event.item?.folder.idKatalogu, 'Utworz podfolder', 'Nazwa folderu',1)">
+                            <img src="../../assets/create_folder.png"> Utwórz podfolder
+                        </ng-template>
+    
+                    <ng-template let-item contextMenuItem [visible]="isFolder" [enabled]="true" (execute)="openContextMenu($event.item?.folder.idKatalogu, 'Zmień nazwę folderu', 'Nowa nazwa folderu',2)">
+                            <img src="../../assets/rename_folder.png"> Zmień nazwę
+                    </ng-template>
+    
+                    <ng-template let-item contextMenuItem [visible]="isFolder" [enabled]="true" (execute)="uploadFile($event.item?.folder.idKatalogu)">
+                            <img src="../../assets/upload_folder.png"> Prześlij plik
+                    </ng-template>  
+    
+                    <ng-template  let-item contextMenuItem [visible]="user?.soldier?.idOsoby === platoon?.idDowodcy" [enabled]="user?.soldier?.idOsoby === platoon?.idDowodcy" 
+                    (execute)="openContextMenu($event.item?.folder.idKatalogu, 'Czy chcesz usunąc folder', '',3)">
+                            <img src="../../assets/delete_folder.png"> Usuń cały folder
+                    </ng-template>
+    
+                    <ng-template let-item contextMenuItem [visible]="isFile" (execute)="downloadFile($event.item?.file.idPliku)">
+                            <img src="../../assets/download_file.png"> Pobierz plik
+                    </ng-template>
+    
+                    <ng-template contextMenuItem divider="true"></ng-template>
+                </context-menu>
+
+            <input type="file" ng2FileSelect hidden #fileInput (change)="selectFile($event)" />
+            <br>
+        </mat-card>
+    </mat-card>
+</section>
+<notifier-container></notifier-container>

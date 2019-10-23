@@ -1,0 +1,38 @@
+<section fxLayout fxLayoutAlign="center center">
+  <mat-card fxFlex.xs="100%" fxFlex="40rem" class="card-center">
+    <mat-card-title fxLayoutAlign="center">
+      <img src="../../assets/login_soldier_icon.png">
+    </mat-card-title>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="container" >
+
+      <mat-form-field hintLabel="Pole nie może być puste">
+        <input type="text" matInput placeholder="Your Login" formControlName="login" id="defaultForm-email" name="username" placeholder="Username" [ngClass]="{'isValid': loginForm.get('login').errors
+        && loginForm.get('login').touched}" login required >
+        <mat-error >Pole nie może być puste</mat-error>
+        <mat-label>
+          <mat-icon>account_circle</mat-icon> Nazwa użytkownika
+        </mat-label>
+      </mat-form-field>
+
+      <mat-form-field hintLabel="Pole nie może być puste">
+        <input type="password" matInput placeholder="Your password"  formControlName="pass" id="defaultForm-pass" name="password" placeholder="Password" [ngClass]="{'isValid': loginForm.get('pass').errors
+        && loginForm.get('pass').touched}"
+          required>
+          <mat-error >Pole nie może być puste</mat-error>
+        <mat-label>
+          <mat-icon>vpn_key</mat-icon> Hasło
+        </mat-label>
+      </mat-form-field>
+
+      <mat-card-actions fxLayout fxLayoutAlign="center">
+        <button class="login-button" type="submit" mat-raised-button color="primary">Submit</button>
+      </mat-card-actions>
+      <span class="font-small grey-text d-flex justify-content-center">
+        Nie masz konta?
+        <a [routerLink]='["/register"]' class="dark-grey-text font-weight-bold ml-1"> Zarejestruj się</a>
+      </span>
+    </form>
+
+  </mat-card>
+</section>

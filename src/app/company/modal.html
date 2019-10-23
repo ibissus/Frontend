@@ -1,0 +1,25 @@
+<div>
+    <h1 mat-dialog-title fxLayout fxLayoutAlign="center center">Brak uprawnień</h1>
+    <div mat-dialog-content>
+        <p fxLayout fxLayoutAlign="center center">Nie możesz przejść do {{data.platoonId}} plutonu, którego nie jesteś członkiem.
+            W takim przypadku możesz wysłać prośbę o dołączenie do plutonu wybierając odpowiednie stanowisko
+        </p><br><br>
+        <mat-label>Wybierz stanowisko</mat-label>
+        <mat-form-field>
+            
+            <mat-select #sel>
+                <mat-option value="com">
+                    Dowódca plutonu
+                </mat-option>
+                <mat-option value="sol">
+                    Podchorąży
+                </mat-option>
+            </mat-select>
+        </mat-form-field> <br><br><br><br>
+
+    </div>
+    <div mat-dialog-actions fxLayout fxLayoutAlign="center center">
+        <button mat-raised-button color="accent" (click)="onNoClick()">Nie wysyłaj</button>
+        <button mat-raised-button color="primary" (click)="onSubmit(sel.value)" cdkFocusInitial>Wyślij</button>
+    </div>
+</div>

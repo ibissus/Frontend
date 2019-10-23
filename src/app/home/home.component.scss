@@ -1,0 +1,118 @@
+.filter {
+    width: 100%;
+  }
+  button{
+      margin: .5rem;
+  }
+  section {
+    margin-top: 2rem;
+    mat-card {
+      mat-toolbar {
+        
+        height: 4rem;
+        text-emphasis: none;
+        text-decoration: none;
+        font-size: 1.8rem;
+        font-family: "Raleway", sans-serif;
+        border-radius: 0.2rem;
+        // border: 1px solid rgb(62, 151, 253);
+        margin-bottom: 3rem;
+        -webkit-box-shadow: 2px 2px 5px 0px #00000057;
+        -moz-box-shadow: 2px 2px 5px 0px #00000057;
+        box-shadow: 2px 2px 5px 0px #00000057;
+      }
+    }
+  }
+  table {
+    width: 100%;
+    
+  }
+  img{
+    height: 4rem;
+  }
+  
+  mat-icon {
+    cursor: pointer;
+  
+    &:hover {
+      opacity: 0.7;
+      &:active {
+        opacity: 0.5;
+      }
+    }
+  }
+  mat-paginator{
+    margin-bottom: 2rem;
+  }
+  
+  table {
+    text-align: center !important;
+    width: 100%;
+  }
+  .mat-header-cell {
+    text-align: center;
+  }
+  :host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+  }
+  .add-logo {
+    height: 3rem;
+  }
+  .icon-add {
+      margin: 1rem;
+      font-size: 3rem;
+    &.neutral{
+      color: orange
+    }
+    &.positive{
+      color: #00e676;
+    }
+    img {
+      height: 3rem;
+      color: lightskyblue;
+    }
+  }
+  mat-form-field {
+    width:35.8rem;
+    font-size:1.5rem 
+  }
+  @media only screen and (max-width: 600px) {
+    mat-form-field {
+      width:100%;
+    }
+    mat-card-action  {
+      width:100%;
+    }
+  }
+  .block{
+      display: inline-block;
+      margin-right: 1rem;
+  }
+  .commander-icon{
+      height: 3rem;
+      margin-left: 1rem;
+      margin-bottom: 1rem
+  }
+  mat-grid-tile {
+    background: #fafafa;
+  }
+  mat-expansion-panel{
+      margin-bottom: 2rem;
+      font-size: 2rem;
+  }
+  mat-panel-title{
+    margin-top:4rem;
+    height: 5rem;
+}
+  .header-info{
+    margin: .5rem;
+    font-size:1.5rem; 
+    background-color: #fafafa;
+
+    span{
+      margin-bottom: 1rem;
+    }
+  }
+  
+  

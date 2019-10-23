@@ -1,0 +1,14 @@
+<div>
+    <h1 mat-dialog-title fxLayout fxLayoutAlign="center center">Plan zajęć</h1>
+    <div mat-dialog-content>
+   
+       
+        <p *ngIf="!data.scheduleImage" fxLayout fxLayoutAlign="center center">Brak planu zajęć
+        </p><br><br>
+        <img *ngIf="data.scheduleImage" [src]="data.scheduleImage" width="1000px">
+
+    </div>
+    <div mat-dialog-actions fxLayout fxLayoutAlign="center center">
+        <button mat-raised-button color="accent" mat-dialog-close>Zamknij</button>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div>
+    <h1 mat-dialog-title fxLayout fxLayoutAlign="center center">{{data.modalTitle}}</h1>
+    <div mat-dialog-content>
+        <!-- <p fxLayout fxLayoutAlign="center center">Nie możesz przejść do {{data.platoonId}} plutonu, którego nie jesteś członkiem.
+                W takim przypadku możesz wysłać prośbę o dołączenie do plutonu wybetrierając odpowiednie stanowisko
+            </p><br><br> -->
+        <br>
+
+        <mat-form-field  *ngIf="data.modalPlaceholder">
+            <input matInput [(ngModel)]="data.folderName" placeholder="{{data.modalPlaceholder}}">
+        </mat-form-field>
+
+        <mat-checkbox *ngIf="!data.modalPlaceholder" [(ngModel)]="data.checked">Zaznacz aby usunąć</mat-checkbox>
+
+        <br><br><br><br>
+    </div>
+    <div mat-dialog-actions fxLayout fxLayoutAlign="center center">
+        <button mat-raised-button color="accent" (click)="onNoClick()">Zamknij</button>
+        <button *ngIf="data.modalPlaceholder" mat-raised-button color="primary" [mat-dialog-close]="data.folderName" cdkFocusInitial>Wykonaj</button>
+        <button *ngIf="!data.modalPlaceholder" mat-raised-button color="primary" [mat-dialog-close]="data.checked" cdkFocusInitial>Wykonaj</button>
+    </div>
+</div>

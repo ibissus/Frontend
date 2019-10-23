@@ -1,0 +1,56 @@
+<section fxLayout fxLayoutAlign="center center">
+  <mat-card fxFlex.xs="100%" fxFlex="40rem" class="card-center">
+    <mat-card-title fxLayoutAlign="center">
+      <img src="../../assets/login_soldier_icon.png">
+    </mat-card-title>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="container" >
+
+      <mat-form-field hintLabel="Pole nie może być puste">
+        <input type="text" formControlName="firstName" matInput placeholder="Your Login"  name="username" placeholder="Username" [ngClass]="{'isValid': registerForm.get('firstName').errors
+        && registerForm.get('firstName').touched}">
+        <mat-error >Pole nie może być puste</mat-error>
+        <mat-label>
+          <mat-icon>account_circle</mat-icon> Imię
+        </mat-label>
+      </mat-form-field>
+
+      <mat-form-field hintLabel="Pole nie może być puste">
+        <input type="text" formControlName="familyName" formControlName="familyName" matInput placeholder="Your Login"  name="username" placeholder="Username" 
+        [ngClass]="{'isValid': registerForm.get('familyName').errors
+        && registerForm.get('familyName').touched}" >
+        <mat-error >Pole nie może być puste</mat-error>
+        <mat-label>
+          <mat-icon>account_circle</mat-icon> Nazwisko
+        </mat-label>
+      </mat-form-field>
+
+      <mat-form-field hintLabel="Pole nie może być puste">
+        <input type="password" matInput placeholder="Your password"  formControlName="pass" id="defaultForm-pass" name="password" placeholder="Password" 
+            required [ngClass]="{'isValid': registerForm.get('pass').touched}" >
+            <mat-error >Pole nie może być puste</mat-error>
+        <mat-label>
+          <mat-icon>vpn_key</mat-icon> Hasło
+        </mat-label>
+      </mat-form-field>
+
+      <mat-form-field hintLabel="Hasła muszą się zgadzać">
+        <input type="password" matInput placeholder="Your password" formControlName="confirmPass" id="defaultForm-pass" name="password" placeholder="Password" 
+          required [ngClass]="{'isValid': registerForm.get('confirmPass').touched}">
+          <mat-error >Hasła muszą się zgadzać</mat-error>
+        <mat-label>
+          <mat-icon>vpn_key</mat-icon> Potwierdż hasło
+        </mat-label>
+      </mat-form-field>
+
+      <mat-card-actions fxLayout fxLayoutAlign="center">
+        <button [disabled]="sent" class="login-button" type="submit" mat-raised-button color="primary">Zarejestruj</button>
+      </mat-card-actions>
+      <span class="font-small grey-text d-flex justify-content-center">
+        Nie masz konta?
+        <a [routerLink]='["/login"]' class="dark-grey-text font-weight-bold ml-1"> Zaloguj się</a>
+      </span>
+    </form>
+
+  </mat-card>
+</section>

@@ -1,0 +1,97 @@
+<section fxFlex fxLayoutAlign="center center">
+  <mat-card fxFlex.md="100%" fxFlex.lt-md="100%" fxFlex="120rem">
+
+    <h2>
+      <button mat-raised-button color='primary' (click)="logOut()">
+        <mat-icon>directions_run</mat-icon>
+      </button>
+    </h2>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Informacje personalne
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start" fxLayout.lt-sm="column">
+          <ng-container>
+            <mat-card class="header-info" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxFlex="0 1 calc(49%)">
+              <img src="../../assets/soldier_header_info_icon.png">
+              Żołnierz :
+              <b>{{user?.soldier?.imie}} {{user?.soldier?.nazwisko}}</b>
+            </mat-card>
+            <mat-card class="header-info" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxFlex="0 1 calc(49%)">
+              <img src="../../assets/platoon_header_info_icon.png"> Numer kompanii :
+              <b>{{user?.soldier?.nrKompanii}}</b>
+            </mat-card>
+            <mat-card class="header-info" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxFlex="0 1 calc(49%)">
+              <img src="../../assets/commander_header_info_icon.png"> Funkcyjny :
+              <b> {{user?.soldier?.funkcyjny ? 'TAK' : 'NIE'}}</b>
+            </mat-card>
+            <mat-card *ngIf="!user?.isInCCRole()" class="header-info" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" fxFlex="0 1 calc(49%)">
+              <img src="../../assets/platoon_header_info_icon.png"> Numer plutonu :
+              <b>{{user?.soldier?.nrPlutonu}}</b>
+            </mat-card>
+
+          </ng-container>
+        </div>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+
+    <form class="block">
+      <mat-form-field class="example-full-width">
+        <input matInput #cNum name='cNum' type="text" placeholder="Numer kompanii">
+      </mat-form-field>
+    </form>
+
+    <button class="block" mat-raised-button color="primary" value="Utwórz" (click)="createCompany(cNum.value)">Utwórz kompanię</button>
+
+    <mat-card-content>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="icon">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol jednostki organizacyjnej </th>
+            <td mat-cell *matCellDef="let data">
+              <img *ngIf="data?.nrKompanii === user?.soldier.nrKompanii" src="../../assets/mens_grey.jpg">
+              <img *ngIf="data?.nrKompanii != user?.soldier.nrKompanii" src="../../assets/mens.jpg"> </td>
+          </ng-container>
+
+          <!-- Course name Column -->
+          <ng-container matColumnDef="nrKompanii">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Numer Kompanii </th>
+            <td mat-cell *matCellDef="let data">{{data?.nrKompanii}}</td>
+          </ng-container>
+
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Dołącz lub przejdź </th>
+            <td mat-cell *matCellDef="let row">
+              <span *ngIf="row?.nrKompanii === user?.soldier?.nrKompanii">
+                <img class="commander-icon" src="../../assets/commander.png">
+              </span>
+              <mat-icon *ngIf="user?.soldier?.nrKompanii === null && joinCompanySent === false" class="icon-add positive" (click)="joinCompany(row.nrKompanii)">group_add </mat-icon>
+              <mat-icon *ngIf="row?.nrKompanii === user?.soldier?.nrKompanii" class="icon-add neutral" (click)="getCompanyDetails(row?.nrKompanii)">search </mat-icon>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+</section>
